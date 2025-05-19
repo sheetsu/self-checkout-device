@@ -1,0 +1,13 @@
+.bundle/
+vendor/
+*.gem
+log/
+tmp/
+*.db
+.DS_Store
+public/
+.vscode/
+.idea/
+
+.env
+.env.*
