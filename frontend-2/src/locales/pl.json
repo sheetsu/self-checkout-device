@@ -1,0 +1,13 @@
+{
+  "validations": {
+    "required": "To pole jest wymagane",
+    "invalidEmail": "Wprowadź poprawny adres email"
+  },
+  "order": {
+    "title": "Podsumowanie",
+    "totalPrice": "Wartość zamówienia",
+    "fundingToBeUsed": "Dofinansowanie",
+    "smartlunchBonusToBeUsed": "Rabat kredytowy",
+    "companyBonusToBeUsed": "Dodatkowe dofinansowanie"
+  }
+}
