@@ -5,8 +5,8 @@ const path = require("path");
 module.exports = defineConfig({
   parallel: false,
   transpileDependencies: ["quasar"],
-  // publicPath: "/packs/self-checkout-device/",
-  outputDir: "../public/self-checkout-device",
+  publicPath: "./",
+  outputDir: "../public",
 
   pluginOptions: {
     i18n: {
