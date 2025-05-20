@@ -21,7 +21,7 @@ set :static, true
 # API endpoint
 get '/api/hello' do
   content_type :json
-  { message: "Hello Łord" }.to_json
+  { message: "Hello Łordd" }.to_json
 end
 
 # fallback dla SPA (vue-router)
