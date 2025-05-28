@@ -2,6 +2,10 @@
 
 source "https://rubygems.org"
 
-gem 'sinatra'
+ruby "3.4.3"
+
+gem 'puma'
 gem 'rack-cors'
+gem 'rackup'
+gem 'sinatra'
 gem 'sinatra-contrib', group: :development

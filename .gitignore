@@ -8,6 +8,6 @@ tmp/
 /public/
 .vscode/
 .idea/
+.zed/
 
-.env
-.env.*
+config.yml

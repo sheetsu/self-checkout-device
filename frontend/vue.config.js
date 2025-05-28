@@ -7,6 +7,9 @@ module.exports = defineConfig({
   transpileDependencies: ["quasar"],
   publicPath: "./",
   outputDir: "../public",
+  devServer: {
+    port: 4001,
+  },
 
   pluginOptions: {
     i18n: {

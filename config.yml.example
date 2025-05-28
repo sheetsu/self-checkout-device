@@ -1,0 +1,4 @@
+client_url: 'http://localhost:4000'
+backned:
+    url: 'http://localhost:3000'
+    token: 'G9NTLJTxoLFfho17PMSauaGb'
