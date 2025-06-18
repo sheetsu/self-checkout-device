@@ -13,6 +13,7 @@ configure do
   set :port, 4000
 
   set :api_proxy, ApiProxy.new(APP_CONFIG["backend"]["url"], APP_CONFIG["backend"]["token"])
+  set :scanned_code_processor, ScannedCodeProcessor.new(settings.api_proxy)
 end
 
 use Rack::Cors do
@@ -29,6 +30,21 @@ set :static, true
 get '/api/hello' do
   content_type :json
   { message: "Hello Łordd" }.to_json
+end
+
+# Endpoint for hardware devices to send scanned codes
+post '/process-scanned-code' do
+  content_type :json
+
+  result = settings.scanned_code_processor.process_request(request.body.read)
+
+  if result[:status] == 200
+    # settings.logger.info "/process-scanned-code, request payload: #{request.body}, status: 200"
+    return { status: "success" }.to_json
+  else
+    # settings.logger.error "/process-scanned-code, request payload: #{request.body}, status: 400"
+    halt 400, { status: "error", message: result[:body] }.to_json
+  end
 end
 
 # Universal proxy route for all HTTP methods
