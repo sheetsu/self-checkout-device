@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import MenuView from "@views/menu/MenuView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "menu",
-    component: MenuView,
+    component: () => import(/* webpackChunkName: "menu" */ "@views/menu/MenuView.vue"),
   },
 ];
 
