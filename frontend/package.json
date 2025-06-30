@@ -16,7 +16,14 @@
     "pinia": "^2.0.22",
     "workbox-webpack-plugin": "^7.0.0",
     "vue-svg-loader": "^0.17.0-beta.2",
-    "vue-i18n": "^9.1.0"
+    "vue-i18n": "^9.1.0",
+    "@sheetsu/sl-frontend-packages": "^1.0.1",
+    "date-fns": "^4.1.0",
+    "lodash": "^4.17.21",
+    "vue3-lottie": "^3.2.0",
+    "vuex": "^4.1.0",
+    "bowser": "^2.11.0",
+    "vee-validate": "^4.7.3"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.22.5",
