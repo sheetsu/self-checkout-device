@@ -11,6 +11,8 @@ Sinatra app.rb in development mode:
 	•	all other paths: redirect to http://localhost:4001 (Vite dev server)
 
 ## dev start app's
+copy `config.yml.example` to `config.yml` and edit it.
+Token value should be setup to your self checkout device token.
 ```bash
 ./dev.sh
 ```
