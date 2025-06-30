@@ -1,8 +1,0 @@
-{
-  "name": "shared-icons",
-  "main": "index.js",
-  "version": "0.0.1",
-  "dependencies": {
-    "vue": "^3.3.4"
-  }
-}

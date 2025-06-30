@@ -2,8 +2,8 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Quasar } from "quasar";
 
-import "./assets/styles/index.scss";
 import "./assets/styles/shared-styles.scss";
+import "./assets/styles/index.scss";
 
 import quasarUserOptions from "./quasar-user-options";
 
