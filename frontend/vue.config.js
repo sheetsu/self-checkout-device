@@ -4,20 +4,12 @@ const path = require("path");
 
 module.exports = defineConfig({
   parallel: false,
-  transpileDependencies: ["quasar"],
+  transpileDependencies: ["quasar", "@sheetsu/sl-frontend-packages"],
   publicPath: "./",
   outputDir: "../public",
   devServer: {
     port: 4001,
-    proxy: {
-      "/api": {
-        target: "http://localhost:4000",
-        changeOrigin: true,
-        secure: false,
-      },
-    },
   },
-
   pluginOptions: {
     i18n: {
       locale: "pl",
@@ -28,9 +20,7 @@ module.exports = defineConfig({
       compositionOnly: false,
       fullInstall: true,
     },
-    quasar: {
-      importStrategy: "kebab",
-    },
+    quasar: {},
   },
   css: {
     extract: false,
@@ -47,6 +37,10 @@ module.exports = defineConfig({
       },
     ]);
     config.module.rules.delete("svg");
+
+    config.resolve.alias
+      .set("@", path.resolve(__dirname, "./src"))
+      .set("@views", path.resolve(__dirname, "./src/views"))
 
     config.module
       .rule("svg-color")
