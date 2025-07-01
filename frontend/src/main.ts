@@ -2,14 +2,14 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Quasar } from "quasar";
 
-import "./assets/styles/shared-styles.scss";
-import "./assets/styles/index.scss";
+import "@/assets/styles/shared-styles.scss";
+import "@/assets/styles/index.scss";
 
-import quasarUserOptions from "./quasar-user-options";
+import quasarUserOptions from "@/quasar-user-options";
 
-import App from "./App.vue";
-import router from "./router";
-import i18n from "./i18n";
+import App from "@/App.vue";
+import router from "@/router";
+import i18n from "@/i18n";
 
 const pinia = createPinia();
 

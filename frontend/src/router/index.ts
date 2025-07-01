@@ -6,6 +6,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "menu",
     component: () => import(/* webpackChunkName: "menu" */ "@views/menu/MenuView.vue"),
   },
+  {
+    path: "/playground",
+    name: "playground",
+    component: () => import(/* webpackChunkName: "playground" */ "@views/playground/PlaygroundView.vue"),
+  }
 ];
 
 const router = createRouter({

@@ -5,10 +5,17 @@ const path = require("path");
 module.exports = defineConfig({
   parallel: false,
   transpileDependencies: ["quasar", "@sheetsu/sl-frontend-packages"],
-  publicPath: "./",
+  publicPath: "/",
   outputDir: "../public",
   devServer: {
     port: 4001,
+    proxy: {
+      "/api": {
+        target: 'http://127.0.0.1:4000',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   },
   pluginOptions: {
     i18n: {
