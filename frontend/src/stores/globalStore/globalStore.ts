@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-import createState, { type State } from "@views/menu/stores/state";
-import createMutations, { type Mutations } from "@views/menu/stores/mutations";
-import createActions, { type Actions } from "@views/menu/stores/actions";
-import createGetters, { type Getters } from "@views/menu/stores/getters";
+import createState, { type State } from "@/stores/globalStore/state";
+import createMutations, { type Mutations } from "@/stores/globalStore/mutations";
+import createActions, { type Actions } from "@/stores/globalStore/actions";
+import createGetters, { type Getters } from "@/stores/globalStore/getters";
 
 export const useGlobalStore = defineStore("globalStore", () => {
   const state: State = createState();

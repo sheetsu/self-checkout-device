@@ -1,4 +1,4 @@
-import type { State } from "@views/menu/stores/state";
+import type { State } from "@/stores/globalStore/state";
 
 export interface Getters {
 
