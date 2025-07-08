@@ -1,8 +1,9 @@
 require 'json'
 
 class ScannedCodeProcessor
-  def initialize(api_proxy)
+  def initialize(api_proxy, sse_broadcaster = nil)
     @api_proxy = api_proxy
+    @sse_broadcaster = sse_broadcaster
   end
 
   def process_request(request_body)
@@ -18,7 +19,7 @@ class ScannedCodeProcessor
     return validation_error if validation_error
 
     # FUTURE: if kind == "menu_item" => forward_to_frontend
-    result = forward_to_backend(code)
+    result = forward_to_backend(code, kind)
 
     {
       status: result[:status],
@@ -59,7 +60,20 @@ class ScannedCodeProcessor
 
   def forward_menu_item_to_backend(code); end
 
-  def forward_to_backend(code)
-    @api_proxy.forward_request("POST", "v2/self_checkout_devices/employees/identify", { identifier: code })
+  def forward_to_backend(code, kind)
+    result = @api_proxy.forward_request("POST", "v2/self_checkout_devices/employees/identify", { identifier: code })
+
+    # Broadcast SSE message if broadcaster is available
+    if @sse_broadcaster
+      @sse_broadcaster.broadcast({
+        type: 'scanned_code_response',
+        code: code,
+        kind: kind,
+        status: result[:status],
+        response: JSON.parse(result[:body])
+      })
+    end
+
+    result
   end
 end

@@ -5,7 +5,7 @@ source "https://rubygems.org"
 ruby "3.4.3"
 
 gem 'http'
-gem 'puma'
+gem 'thin'
 gem 'rack-cors'
 gem 'rackup'
 gem 'sinatra'

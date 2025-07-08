@@ -8,12 +8,13 @@ configure :development do
 end
 
 configure do
-  set :server, "puma"
+  set :server, "thin"
   set :bind, "0.0.0.0"
   set :port, 4000
 
   set :api_proxy, ApiProxy.new(APP_CONFIG["backend"]["url"], APP_CONFIG["backend"]["token"])
-  set :scanned_code_processor, ScannedCodeProcessor.new(settings.api_proxy)
+  set :sse_broadcaster, SseBroadcaster.new
+  set :scanned_code_processor, ScannedCodeProcessor.new(settings.api_proxy, settings.sse_broadcaster)
 end
 
 use Rack::Cors do
@@ -29,7 +30,28 @@ set :static, true
 # API endpoint for testing
 get '/api/hello' do
   content_type :json
+  settings.sse_broadcaster.broadcast({ message: "Hello from the backend!" })
   { message: "Hello Łordd" }.to_json
+end
+
+# SSE endpoint for frontend
+get "/stream", provides: "text/event-stream" do
+  response.headers['Content-Type'] = 'text/event-stream'
+  response.headers['Cache-Control'] = 'no-cache'
+  response.headers['Connection'] = 'keep-alive'
+
+  stream(:keep_open) do |out|
+    settings.sse_broadcaster.add_connection(out)
+
+    out.callback do
+      puts "SSE connection closed"
+      settings.sse_broadcaster.remove_connection(out)
+    end
+    out.errback do
+      puts "SSE connection error"
+      settings.sse_broadcaster.remove_connection(out)
+    end
+  end
 end
 
 # Endpoint for hardware devices to send scanned codes
@@ -43,7 +65,7 @@ post '/process-scanned-code' do
     return { status: "success" }.to_json
   else
     # settings.logger.error "/process-scanned-code, request payload: #{request.body}, status: 400"
-    halt 400, { status: "error", message: result[:body] }.to_json
+    halt 400, { status: result[:status], message: result[:body] }.to_json
   end
 end
 
