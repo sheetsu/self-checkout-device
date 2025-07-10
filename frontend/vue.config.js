@@ -33,7 +33,7 @@ module.exports = defineConfig({
     extract: false,
     loaderOptions: {
       scss: {
-        additionalData: '@import "./src/assets/styles/variables.scss";',
+        additionalData: '@import "~@sheetsu/sl-frontend-packages/shared-styles/variables.scss";',
       },
     },
   },
