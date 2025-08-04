@@ -8,6 +8,7 @@
         </div>
       </div>
       <div class="menu-view__footer">
+        <CheckFundsInfo />
         <SummaryPanel />
       </div>
     </div>
@@ -19,6 +20,7 @@ import BaseLayout from "@views/shared/layouts/BaseLayout.vue";
 import MenuItem from "@views/menu/components/MenuItem.vue";
 import HeaderWithHeading from "@views/shared/components/HeaderWithHeading.vue";
 import SummaryPanel from "@views/menu/components/SummaryPanel.vue";
+import CheckFundsInfo from "@views/menu/components/CheckFundsInfo.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -41,9 +43,6 @@ import SummaryPanel from "@views/menu/components/SummaryPanel.vue";
     padding: 0 $space-xxl;
 
     overflow-y: auto;
-  }
-
-  &__footer {
   }
 }
 </style>

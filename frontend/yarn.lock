@@ -1084,10 +1084,10 @@
     estree-walker "^2.0.2"
     picomatch "^4.0.2"
 
-"@sheetsu/sl-frontend-packages@^1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@sheetsu/sl-frontend-packages/1.0.1/a32884aa780a5f953faaa9c14c840325156f5f4f#a32884aa780a5f953faaa9c14c840325156f5f4f"
-  integrity sha512-53fMO/LcJtMczOMApPtNM6NvOOk/T7/ZzsIcAMTG8cT43g2jDQb/16xe+iF5+tvgNKCaC7j7hKe6n9UbbNWkMQ==
+"@sheetsu/sl-frontend-packages@^1.0.7":
+  version "1.0.7"
+  resolved "https://npm.pkg.github.com/download/@sheetsu/sl-frontend-packages/1.0.7/e8b261e7f9a59d147840ab913e849c15400b9a56#e8b261e7f9a59d147840ab913e849c15400b9a56"
+  integrity sha512-qBI4Be0u5vG1IzRtn0EqUBLLWsBLmFXEamgEaqa+qeQE0T+PoHPP79VfOjcnIuALDzD27VAUJrXb33ngzFdsXw==
 
 "@sideway/address@^4.1.5":
   version "4.1.5"

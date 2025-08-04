@@ -1,6 +1,6 @@
-import { createApp } from "vue";
+import { createApp, computed } from "vue";
 import { createPinia } from "pinia";
-import { Quasar } from "quasar";
+import { Quasar, Screen } from "quasar";
 
 import "@/assets/styles/shared-styles.scss";
 import "@/assets/styles/index.scss";
@@ -15,6 +15,18 @@ const pinia = createPinia();
 
 const app = createApp(App);
 
-app.use(i18n).use(pinia).use(router).use(Quasar, quasarUserOptions);
+app
+  .provide(
+    "isMobile",
+    computed(() => Screen.lt.md)
+  )
+  .provide(
+    "isDesktop",
+    computed(() => Screen.gt.md || Screen.md)
+  )
+  .use(i18n)
+  .use(pinia)
+  .use(router)
+  .use(Quasar, quasarUserOptions);
 
 router.isReady().then(() => app.mount("#app-self-checkout-device"));
