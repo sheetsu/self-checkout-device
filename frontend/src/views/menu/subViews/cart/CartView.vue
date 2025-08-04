@@ -2,36 +2,41 @@
   <BaseLayout>
     <div class="cart-view">
       <HeaderWithHeading heading="Potwierdź i zapłać" />
-      <div class="cart-view__main">
-        <div class="cart-view__order-summary">
-          <div class="cart-view__order-items">
-            <div
-              ref="orderItemsScrollWrapper"
-              class="cart-view__order-items-scroll-wrapper"
-              @scroll="checkScroll()"
-            >
-              <OrderItem v-for="i in items" :key="i" />
+      <template v-if="items > 0">
+        <div class="cart-view__main">
+          <div class="cart-view__order-summary">
+            <div class="cart-view__order-items">
+              <div
+                ref="orderItemsScrollWrapper"
+                class="cart-view__order-items-scroll-wrapper"
+                @scroll="checkScroll()"
+              >
+                <OrderItem v-for="i in items" :key="i" />
+              </div>
+              <div
+                v-if="items > 4 && showScrollOverlay"
+                class="cart-view__more-items-overlay"
+              />
             </div>
-            <div
-              v-if="items > 4 && showScrollOverlay"
-              class="cart-view__more-items-overlay"
-            />
+            <div class="cart-view__dashed-divider" />
+            <div class="cart-view__payment-summary">
+              <span class="text-h2 text-dark-700">Do zapłaty</span>
+              <span class="text-h1 text-dark-700">49,00 zł</span>
+            </div>
           </div>
-          <div class="cart-view__dashed-divider" />
-          <div class="cart-view__payment-summary">
-            <span class="text-h2 text-dark-700">Do zapłaty</span>
-            <span class="text-h1 text-dark-700">49,00 zł</span>
-          </div>
+          <ScanToPayInfoCard />
         </div>
-        <ScanToPayInfoCard />
-      </div>
-      <div class="cart-view__footer">
-        <DevicesButton label="Wróć do listy produktów" @click="goToMenu()">
-          <template #pre-icon>
-            <BaseIcon name="chevron" direction="left" color="primary-400" />
-          </template>
-        </DevicesButton>
-      </div>
+        <div class="cart-view__footer">
+          <DevicesButton label="Wróć do listy produktów" @click="goToMenu()">
+            <template #pre-icon>
+              <BaseIcon name="chevron" direction="left" color="primary-400" />
+            </template>
+          </DevicesButton>
+        </div>
+      </template>
+      <template v-else>
+        <CartEmptyState />
+      </template>
     </div>
   </BaseLayout>
 </template>
@@ -46,6 +51,7 @@ import HeaderWithHeading from "@views/shared/components/HeaderWithHeading.vue";
 import BaseIcon from "@sheetsu/sl-frontend-packages/shared-icons/BaseIcon.vue";
 import OrderItem from "@views/menu/subViews/cart/components/OrderItem.vue";
 import ScanToPayInfoCard from "@views/menu/subViews/cart/components/ScanToPayInfoCard.vue";
+import CartEmptyState from "@views/menu/subViews/cart/components/CartEmptyState.vue";
 
 const router = useRouter();
 
