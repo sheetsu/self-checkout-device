@@ -2,7 +2,7 @@
   <DevicesCard class="menu-item">
     <div class="menu-item__header">
       <span class="text-body-m text-dark-700 text-bold">
-        Mintaj z frytkami i surówką
+        {{ itemData.name }}
       </span>
     </div>
     <div class="menu-item__main">
@@ -19,18 +19,21 @@
         </DevicesButton>
         <DevicesNumericInput
           :min="0"
-          :max="limit"
+          :max="itemData.dishesLeft"
           v-if="amount > 0"
           v-model="amount"
         />
       </div>
-      <span class="text-h2 text-dark-700">19,00 zł</span>
+      <span class="text-h2 text-dark-700">
+        {{ itemData.totalPriceCents }} zł
+      </span>
     </div>
   </DevicesCard>
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref, type Ref, PropType } from "vue";
+import type { MenuItem } from "@/models/MenuItem";
 
 import DevicesCard from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesCard.vue";
 import DevicesButton from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesButton.vue";
@@ -39,8 +42,8 @@ import DevicesNumericInput from "@sheetsu/sl-frontend-packages/shared-devices/co
 import BaseIcon from "@sheetsu/sl-frontend-packages/shared-icons/BaseIcon.vue";
 
 defineProps({
-  limit: {
-    type: Number,
+  itemData: {
+    type: Object as PropType<MenuItem>,
     required: true,
   },
 });

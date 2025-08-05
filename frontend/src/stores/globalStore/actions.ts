@@ -1,4 +1,3 @@
-import api from "@/api/client";
 import type { Getters } from "@/stores/globalStore/getters";
 import type { Mutations } from "@/stores/globalStore/mutations";
 

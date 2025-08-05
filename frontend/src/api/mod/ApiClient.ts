@@ -6,8 +6,10 @@ import axios, {
 import { type ApiErrorType } from '@/api/types/api.types';
 import ApiError from '@/api/mod/ApiError';
 import { keysToCamel } from '@/api/helpers/keysToCamel';
+import { IApiClient } from '@/api/mod/IApiClient';
+import { parseUrl } from '@/api/helpers/urlParser';
 
-class ApiClient {
+class ApiClient implements IApiClient {
   private instance: AxiosInstance;
 
   constructor(baseURL: string) {
@@ -54,10 +56,12 @@ class ApiClient {
 
   public async get<T = any>(
     url: string,
+    version: string = 'v1',
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     try {
-      return await this.instance.get<T>(url, config);
+      const response = await this.instance.get<T>(parseUrl(url, version), config);
+      return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
     }
@@ -65,11 +69,12 @@ class ApiClient {
 
   public async post<T = any, D = any>(
     url: string,
+    version: string = 'v1',
     data?: D,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     try {
-      const response = await this.instance.post<T>(url, data, config);
+      const response = await this.instance.post<T>(parseUrl(url, version), data, config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
@@ -78,11 +83,12 @@ class ApiClient {
 
   public async put<T = any, D = any>(
     url: string,
+    version: string = 'v1',
     data?: D,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     try {
-      const response = await this.instance.put<T>(url, data, config);
+      const response = await this.instance.put<T>(parseUrl(url, version), data, config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
@@ -91,10 +97,11 @@ class ApiClient {
 
   public async delete<T = any>(
     url: string,
+    version: string = 'v1',
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     try {
-      const response = await this.instance.delete<T>(url, config);
+      const response = await this.instance.delete<T>(parseUrl(url, version), config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
@@ -103,11 +110,12 @@ class ApiClient {
 
   public async patch<T = any, D = any>(
     url: string,
+    version: string = 'v1',
     data?: D,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
+  ): Promise<T> {
     try {
-      const response = await this.instance.patch<T>(url, data, config);
+      const response = await this.instance.patch<T>(parseUrl(url, version), data, config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
