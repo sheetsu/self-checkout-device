@@ -1,3 +1,6 @@
 import type { MenuItem } from "@views/menu/models/MenuItem";
 
-export type GetMenuItemsResponse = MenuItem[];
+export type CartItem = {
+  id: number;
+  item: MenuItem;
+};

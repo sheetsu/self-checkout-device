@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import type { MenuItem } from "@/models/MenuItem";
+import type { MenuItem } from "@views/menu/models/MenuItem";
 
 export interface State {
   menuItems: MenuItem[];

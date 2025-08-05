@@ -25,23 +25,26 @@
         />
       </div>
       <span class="text-h2 text-dark-700">
-        {{ itemData.totalPriceCents }} zł
+        {{ formattedPrice(itemData.totalPriceCents).displayValue }}
       </span>
     </div>
   </DevicesCard>
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref, PropType } from "vue";
-import type { MenuItem } from "@/models/MenuItem";
+import { ref, type Ref, PropType, watch, onMounted } from "vue";
+import type { MenuItem } from "@views/menu/models/MenuItem";
+import { useCartStore } from "@views/menu/subViews/cart/stores/cartStore";
+import { formattedPrice } from "@/views/shared/helpers/formattedPrice";
 
 import DevicesCard from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesCard.vue";
 import DevicesButton from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesButton.vue";
 import DevicesNumericInput from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesNumericInput.vue";
-
 import BaseIcon from "@sheetsu/sl-frontend-packages/shared-icons/BaseIcon.vue";
 
-defineProps({
+const cartStore = useCartStore();
+
+const props = defineProps({
   itemData: {
     type: Object as PropType<MenuItem>,
     required: true,
@@ -53,6 +56,25 @@ const amount: Ref<number> = ref(0);
 const addItemToCart = (): void => {
   amount.value += 1;
 };
+
+const watchAmount = (): void => {
+  watch(amount, (newVal: number, oldVal: number) => {
+    if (newVal > oldVal) {
+      cartStore.actions.addItem(props.itemData);
+    } else if (newVal < oldVal) {
+      cartStore.actions.removeItemByMenuItemId(props.itemData.id);
+    }
+  });
+};
+
+onMounted((): void => {
+  amount.value = cartStore.state.addedMenuItems.reduce(
+    (acc, item) => (item.item.id === props.itemData.id ? acc + 1 : acc),
+    0
+  );
+
+  watchAmount();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@number-flow/vue": "^0.4.8",
     "@quasar/extras": "^1.15.11",
     "@sheetsu/sl-frontend-packages": "^1.0.7",
     "axios": "^1.10.0",

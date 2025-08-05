@@ -1,14 +1,13 @@
 import { reactive } from "vue";
+import type { CartItem } from "@views/menu/subViews/cart/models/CartItem";
 
 export interface State {
-  lang: string;
-  currency: string;
+  addedMenuItems: CartItem[];
 }
 
 const createState = () => {
   return reactive<State>({
-    lang: "pl",
-    currency: "zł",
+    addedMenuItems: [],
   });
 };
 

@@ -1,5 +1,5 @@
 import type { State } from "@views/menu/stores/state";
-import type { MenuItem } from "@/models/MenuItem";
+import type { MenuItem } from "@views/menu/models/MenuItem";
 
 export interface Mutations {
   SET_MENU_ITEMS(data: MenuItem[]): void;
