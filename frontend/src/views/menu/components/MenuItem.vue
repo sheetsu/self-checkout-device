@@ -1,5 +1,5 @@
 <template>
-  <DevicesCard class="menu-item">
+  <DevicesCard class="menu-item" :class="{ 'menu-item--selected': amount > 0 }">
     <div class="menu-item__header">
       <span class="text-body-m text-dark-700 text-bold">
         {{ itemData.name }}
@@ -11,6 +11,7 @@
           v-if="amount <= 0"
           class="menu-item__button"
           label="Dodaj"
+          :disabled="itemData.dishesLeft <= 0"
           @click="addItemToCart()"
         >
           <template #pre-icon>
@@ -87,9 +88,12 @@ onMounted((): void => {
   width: 100%;
 
   outline: none;
+  transition: border-color 150ms ease-out;
+  border: solid $space-xxxs var(--neutral-white);
   background-color: var(--neutral-white);
 
-  &__header {
+  &--selected {
+    border-color: var(--positive);
   }
 
   &__main {

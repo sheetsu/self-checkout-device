@@ -21,16 +21,11 @@ const startSSE = (): void => {
     return;
   }
 
-  const baseUrl = "http://localhost:4000"; // TODO: fix
+  const baseUrl = "http://localhost:4000";
   const sseUrl = `${baseUrl}/stream`;
 
   console.log("Creating new SSE connection to:", sseUrl);
   eventSource.value = new EventSource(sseUrl);
-  // Chyba nie potrzebne
-  eventSource.value.onopen = (event) => {
-    console.log("SSE connection opened:", event);
-    console.log("ReadyState:", eventSource.value?.readyState);
-  };
 
   eventSource.value.onmessage = (event) => {
     console.log("SSE message received:", JSON.parse(event.data));

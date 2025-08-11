@@ -16,6 +16,16 @@
 </template>
 
 <style lang="scss" scoped>
+@keyframes backgroundPulse {
+  from {
+    background-color: var(--info-100);
+  }
+
+  to {
+    background-color: var(--info-300);
+  }
+}
+
 .scan-to-pay-info-card {
   padding: $space-xxl;
 
@@ -29,6 +39,7 @@
     margin-bottom: $space-lg;
 
     background-color: var(--info-100);
+    animation: backgroundPulse 1.2s infinite alternate;
     border-radius: $space-md;
 
     text-align: center;

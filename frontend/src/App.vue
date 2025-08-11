@@ -6,6 +6,41 @@
   </router-view>
 </template>
 
+<script setup lang="ts">
+import { useRoute } from "vue-router";
+import { useSSE } from "@views/shared/composables/serverSourceEvent";
+import { useQuasar } from "quasar";
+import CheckFundsModal from "@views/shared/components/modals/CheckFundsModal.vue";
+import PaymentModal from "@views/shared/components/modals/PaymentModal.vue";
+import { useCartStore } from "@views/menu/subViews/cart/stores/cartStore";
+
+const $q = useQuasar();
+const route = useRoute();
+const cartStore = useCartStore();
+
+const baseSSEUrl = "http://localhost:4000/stream";
+
+const { onMessage } = useSSE(baseSSEUrl);
+
+onMessage((data) => {
+  if (data.status !== 200) return;
+  const { response } = data;
+
+  if (route.name !== "cart") {
+    $q.dialog({
+      component: CheckFundsModal,
+      componentProps: { userId: response.id, name: response.full_name },
+    });
+  } else {
+    if (cartStore.getters.itemsCount === 0) return;
+    $q.dialog({
+      component: PaymentModal,
+      componentProps: { userId: response.id },
+    });
+  }
+});
+</script>
+
 <style lang="scss" scoped>
 .route-enter-active,
 .route-leave-active {

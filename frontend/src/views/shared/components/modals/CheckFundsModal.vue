@@ -1,7 +1,9 @@
 <template>
   <q-dialog ref="dialogRef">
     <BaseDialogContent class="check-funds-modal" width="984px">
-      <template #header><span class="text-h1">Cześć, Monika !</span></template>
+      <template #header>
+        <span class="text-h1">Cześć, {{ name }} !</span>
+      </template>
       <template #body>
         <FundsStatus
           additional-funding-type="monthly"
@@ -18,12 +20,36 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, type Ref, ref } from "vue";
 import { useDialogPluginComponent } from "quasar";
 import BaseDialogContent from "@sheetsu/sl-frontend-packages/shared-components/BaseDialogContent.vue";
 import DevicesButton from "@sheetsu/sl-frontend-packages/shared-devices/components/DevicesButton.vue";
 import FundsStatus from "@views/shared/components/FundsStatus.vue";
+import type { GetPaymentFundsResponse } from "@/api/types/api.response";
 
+import { useGlobalStore } from "@/stores/globalStore/globalStore";
+
+const props = defineProps({
+  userId: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+});
+
+const globalStore = useGlobalStore();
 const { dialogRef, onDialogOK } = useDialogPluginComponent();
+
+const employeeFunds: Ref<GetPaymentFundsResponse | null> = ref(null);
+
+onMounted(async (): Promise<void> => {
+  employeeFunds.value = await globalStore.actions.getEmployeePaymentFunds(
+    props.userId
+  );
+});
 </script>
 
 <style lang="scss" scoped>

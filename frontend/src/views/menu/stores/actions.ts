@@ -8,8 +8,12 @@ export interface Actions {
 
 const createActions = (mutations: Mutations, getters: Getters): Actions => {
   const loadMenuItems = async (): Promise<void> => {
-    const items = await MenuService.getMenuItems();
-    mutations.SET_MENU_ITEMS(items);
+    try {
+      const items = await MenuService.getMenuItems();
+      mutations.SET_MENU_ITEMS(items);
+    } catch (error) {
+      mutations.SET_MENU_ITEMS([]);
+    }
   };
 
   return {

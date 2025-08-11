@@ -6,6 +6,7 @@ import axios, {
 import { type ApiErrorType } from '@/api/types/api.types';
 import ApiError from '@/api/mod/ApiError';
 import { keysToCamel } from '@/api/helpers/keysToCamel';
+import { keysToSnake } from '@/api/helpers/keysToSnake';
 import { IApiClient } from '@/api/mod/IApiClient';
 import { parseUrl } from '@/api/helpers/urlParser';
 
@@ -74,7 +75,7 @@ class ApiClient implements IApiClient {
     config?: AxiosRequestConfig,
   ): Promise<T> {
     try {
-      const response = await this.instance.post<T>(parseUrl(url, version), data, config);
+      const response = await this.instance.post<T>(parseUrl(url, version), keysToSnake(data), config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
@@ -88,7 +89,7 @@ class ApiClient implements IApiClient {
     config?: AxiosRequestConfig,
   ): Promise<T> {
     try {
-      const response = await this.instance.put<T>(parseUrl(url, version), data, config);
+      const response = await this.instance.put<T>(parseUrl(url, version), keysToSnake(data), config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
@@ -115,7 +116,7 @@ class ApiClient implements IApiClient {
     config?: AxiosRequestConfig,
   ): Promise<T> {
     try {
-      const response = await this.instance.patch<T>(parseUrl(url, version), data, config);
+      const response = await this.instance.patch<T>(parseUrl(url, version), keysToSnake(data), config);
       return keysToCamel(response.data);
     } catch (error) {
       this.handleError(error);
