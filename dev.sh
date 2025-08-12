@@ -4,4 +4,4 @@
 ruby app.rb &
 
 # Start Vue frontend on port 4001
-cd frontend && yarn serve
+cd frontend && yarn dev
