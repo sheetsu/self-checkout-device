@@ -1,11 +1,11 @@
 <template>
   <div class="lang-switch">
     <DevicesSelect
-      :key="selectedLanguage.label"
+      :key="selectedLanguage?.label"
       :model-value="selectedLanguage?.shortcut"
       :options="userLanguagesOptions"
       behavior="menu"
-      :selected-icon="`flag-${selectedLanguage.shortcut}-color`"
+      :selected-icon="`flag-${selectedLanguage?.shortcut}-color`"
       @update:model-value="handleLanguageChange"
     />
   </div>
