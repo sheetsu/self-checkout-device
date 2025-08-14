@@ -74,7 +74,7 @@ end
   # Insted of declarations like get '/api/*', post '/api/*' etc.
   send(method, '/api/*') do
     path = params['splat'].first
-    request_body = request.body.read
+    request_body = request.body&.read
     parsed_body = settings.api_proxy.parse_request_body(request_body)
 
     result = settings.api_proxy.forward_request(request.request_method, path, parsed_body)

@@ -57,3 +57,15 @@ The scanned data will be:
 ```bash
 ./prod.sh
 ```
+
+
+## Testing
+
+### Running Tests
+
+The project uses Minitest for testing. To run all tests:
+
+```bash
+# Or run tests directly
+ruby -Itest test/test_app.rb
+```
